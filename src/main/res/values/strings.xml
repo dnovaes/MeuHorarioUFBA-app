@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">
+        MeuHorario <font fgcolor="red">UFBA</font>
+    </string>
+</resources>
