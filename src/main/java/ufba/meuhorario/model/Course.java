@@ -1,9 +1,11 @@
 package ufba.meuhorario.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Diego Novaes on 26/02/2017.
  */
-public class Course {
+public class Course implements Serializable{
     //" (id INTEGER PRIMARY KEY, name TEXT NOT NULL, code INTEGER, curriculum INTEGER, area_id INTEGER)"
     Long id;
     String name;

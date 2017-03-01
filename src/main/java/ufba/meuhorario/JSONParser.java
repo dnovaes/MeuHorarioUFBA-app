@@ -64,7 +64,14 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
                         StoreinDatabase(jsonArray, courseDAO);
                         break;
                     default:
-                        Toast.makeText(MainActivity, "None of the Arrays downloaded. Contact support!", Toast.LENGTH_SHORT).show();
+                        MainActivity.runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(MainActivity.getApplicationContext(),
+                                        "None of the Arrays downloaded. Contact support!",
+                                        Toast.LENGTH_LONG).show();
+                            }
+                        });
                         break;
                 }
 

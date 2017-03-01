@@ -5,8 +5,13 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -35,7 +40,23 @@ public class CoursesActivity extends AppCompatActivity{
 
         area_id = area.getId();
 
+        TextView areaTitleView = (TextView) findViewById(R.id.course_area_title);
+        areaTitleView.setText(area.getName());
+
         coursesList = (ListView)findViewById(R.id.list_courses);
+
+        coursesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> list, View view, int position, long id) {
+                    Course course = (Course) list.getItemAtPosition(position);
+                    //Toast.makeText(AreasActivity.this, "você clicou em "+area.getName(), Toast.LENGTH_SHORT).show();
+
+                    Intent intentDisciplines = new Intent(CoursesActivity.this.getApplicationContext(), DisciplinesActivity.class);
+                    intentDisciplines.putExtra("course", course);
+                    startActivity(intentDisciplines);
+                }
+            }
+        );
     }
 
     @Override
