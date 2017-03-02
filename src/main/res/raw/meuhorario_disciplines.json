@@ -1,0 +1,874 @@
+{
+  "disciplines": [
+    {
+      "id": 61,
+      "code": "LETE46",
+      "name": "Libras-Língua Brasileira de Sinais"
+    },
+    {
+      "id": 1,
+      "code": "ADM202",
+      "name": "Comunicação"
+    },
+    {
+      "id": 3,
+      "code": "ADMF54",
+      "name": "Estudos Organizacionais I"
+    },
+    {
+      "id": 4,
+      "code": "ADMF56",
+      "name": "Iniciação Científica"
+    },
+    {
+      "id": 5,
+      "code": "DIR159",
+      "name": "Instituicao de Direito Publico e Privado"
+    },
+    {
+      "id": 6,
+      "code": "FCH001",
+      "name": "Introdução à Filosofia"
+    },
+    {
+      "id": 7,
+      "code": "MAT013",
+      "name": "Matematica I"
+    },
+    {
+      "id": 8,
+      "code": "ADM170",
+      "name": "Administracao Contabil I"
+    },
+    {
+      "id": 9,
+      "code": "ADM203",
+      "name": "Informática Aplicada à Administração"
+    },
+    {
+      "id": 10,
+      "code": "ADM218",
+      "name": "Abordagem Sócio Política das Organizações"
+    },
+    {
+      "id": 11,
+      "code": "DIR161",
+      "name": "Legislacao Tributaria"
+    },
+    {
+      "id": 12,
+      "code": "ECO155",
+      "name": "Introducao as Teorias Economicas"
+    },
+    {
+      "id": 13,
+      "code": "MAT020",
+      "name": "Estatistica I A"
+    },
+    {
+      "id": 14,
+      "code": "ADM223",
+      "name": "Estudos Antropológicos das Organizações"
+    },
+    {
+      "id": 15,
+      "code": "ADM226",
+      "name": "Gestao de Custos I"
+    },
+    {
+      "id": 16,
+      "code": "ADMF53",
+      "name": "Seminários  de Práticas de Gestão I"
+    },
+    {
+      "id": 18,
+      "code": "DIR164",
+      "name": "Legislacao Social e Direito do Trabalho"
+    },
+    {
+      "id": 19,
+      "code": "ECO142",
+      "name": "Economia Brasileira"
+    },
+    {
+      "id": 20,
+      "code": "MAT191",
+      "name": "Matematica Financeira"
+    },
+    {
+      "id": 21,
+      "code": "ADM150",
+      "name": "Estado e Sociedade"
+    },
+    {
+      "id": 22,
+      "code": "ADM172",
+      "name": "Administracao Financeira I"
+    },
+    {
+      "id": 23,
+      "code": "ADM173",
+      "name": "Administracao Mercadologica I"
+    },
+    {
+      "id": 24,
+      "code": "ADMF55",
+      "name": "Estudos Organizacionais II"
+    },
+    {
+      "id": 25,
+      "code": "IPSA01",
+      "name": "Psicologia I"
+    },
+    {
+      "id": 26,
+      "code": "MAT023",
+      "name": "Estatistica II A"
+    },
+    {
+      "id": 27,
+      "code": "ADM149",
+      "name": "Estrategia Economica  das  Empresas"
+    },
+    {
+      "id": 28,
+      "code": "ADM174",
+      "name": "Administracao da Producao  I"
+    },
+    {
+      "id": 29,
+      "code": "ADM177",
+      "name": "Administracao Financeira II"
+    },
+    {
+      "id": 30,
+      "code": "ADM211",
+      "name": "Métodos Quantitativos Aplicados à Administração"
+    },
+    {
+      "id": 31,
+      "code": "ADMB81",
+      "name": "Ética Empresarial Responsabilidade Social"
+    },
+    {
+      "id": 32,
+      "code": "ADMF72",
+      "name": "Seminários de Práticas de Gestão II"
+    },
+    {
+      "id": 33,
+      "code": "ADM221",
+      "name": "Estágio Curricular"
+    },
+    {
+      "id": 34,
+      "code": "ADMF50",
+      "name": "Políticas Públicas e Gestão Governamental"
+    },
+    {
+      "id": 35,
+      "code": "ADMF58",
+      "name": "Planejamento e Controle de Operações"
+    },
+    {
+      "id": 36,
+      "code": "ADM154",
+      "name": "Elaboração e Análise de Programas e Projetos"
+    },
+    {
+      "id": 37,
+      "code": "ADM179",
+      "name": "Administracao Mercadologica  II"
+    },
+    {
+      "id": 38,
+      "code": "ADM204",
+      "name": "Pesquisa Aplicada à Administração"
+    },
+    {
+      "id": 39,
+      "code": "ADM222",
+      "name": "Gestao de Pessoas"
+    },
+    {
+      "id": 40,
+      "code": "ADM227",
+      "name": "Orcamento e Financas Publicas"
+    },
+    {
+      "id": 41,
+      "code": "ADMB80",
+      "name": "Administração Política"
+    },
+    {
+      "id": 42,
+      "code": "ADMF73",
+      "name": "Seminários de Práticas de Gestão III"
+    },
+    {
+      "id": 43,
+      "code": "ADM175",
+      "name": "Administração Estratégica"
+    },
+    {
+      "id": 44,
+      "code": "ADM181",
+      "name": "Administracao da Producao  II"
+    },
+    {
+      "id": 45,
+      "code": "ADMF60",
+      "name": "Gestão de Pessoas II"
+    },
+    {
+      "id": 46,
+      "code": "ADM224",
+      "name": "Tcc - Trabalho de Conclusão de Curso"
+    },
+    {
+      "id": 47,
+      "code": "DIRB65",
+      "name": "Accs: Empreendedorismo Social"
+    },
+    {
+      "id": 48,
+      "code": "ADM176",
+      "name": "Administracao Contabil II"
+    },
+    {
+      "id": 49,
+      "code": "FCC009",
+      "name": "Auditoria I"
+    },
+    {
+      "id": 50,
+      "code": "ADM180",
+      "name": "Comercio Exterior"
+    },
+    {
+      "id": 51,
+      "code": "FCC050",
+      "name": "Contabilidade Governamental"
+    },
+    {
+      "id": 52,
+      "code": "DIR160",
+      "name": "Direito Administrativo III"
+    },
+    {
+      "id": 53,
+      "code": "DIR167",
+      "name": "Direito Comercial VII"
+    },
+    {
+      "id": 54,
+      "code": "FCH183",
+      "name": "Formacao Socied Brasileira"
+    },
+    {
+      "id": 56,
+      "code": "ADM254",
+      "name": "Gestão Cultural"
+    },
+    {
+      "id": 57,
+      "code": "ADM251",
+      "name": "Gestao de Custos II"
+    },
+    {
+      "id": 58,
+      "code": "ADMB82",
+      "name": "Gestão de Segurança Pública"
+    },
+    {
+      "id": 59,
+      "code": "ADM253",
+      "name": "Gestao Publica e Governo Local"
+    },
+    {
+      "id": 60,
+      "code": "ADM178",
+      "name": "Instrumentos de Marketing"
+    },
+    {
+      "id": 62,
+      "code": "ADM252",
+      "name": "Orçamento Publico e Empresarial"
+    },
+    {
+      "id": 63,
+      "code": "ADM214",
+      "name": "Organizacao e  Relacoes do Trabalho"
+    },
+    {
+      "id": 64,
+      "code": "HACB37",
+      "name": "Organizações Internacionais"
+    },
+    {
+      "id": 65,
+      "code": "HACB35",
+      "name": "Política Externa I"
+    },
+    {
+      "id": 66,
+      "code": "HACC64",
+      "name": "Regimes Internacionais: Meio Ambiente e Direitos Humanos"
+    },
+    {
+      "id": 67,
+      "code": "ADMA95",
+      "name": "Relações Internacionais"
+    },
+    {
+      "id": 68,
+      "code": "ADM216",
+      "name": "Seminário Sobre Temas Específicos em Organização"
+    },
+    {
+      "id": 69,
+      "code": "ADM158",
+      "name": "Seminario Sobre Temas Espectficos em Planejamento"
+    },
+    {
+      "id": 70,
+      "code": "ADM184",
+      "name": "Seminarios Sobre Temas de Administracao em Financas"
+    },
+    {
+      "id": 71,
+      "code": "ADM186",
+      "name": "Seminários Sobre Temas Específicos em Produção e/ ou Market"
+    },
+    {
+      "id": 72,
+      "code": "ADM248",
+      "name": "Seminarios Temas Especificos de Producao e/ ou Marketing"
+    },
+    {
+      "id": 73,
+      "code": "ARQA14",
+      "name": "Oficina de Projeto I"
+    },
+    {
+      "id": 74,
+      "code": "ARQA15",
+      "name": "Teoria e Crítica da Arquitetura"
+    },
+    {
+      "id": 75,
+      "code": "ARQA16",
+      "name": "Desenho de Observação"
+    },
+    {
+      "id": 76,
+      "code": "ARQA18",
+      "name": "Elementos de Cálculo"
+    },
+    {
+      "id": 77,
+      "code": "ARQA19",
+      "name": "História das Artes"
+    },
+    {
+      "id": 78,
+      "code": "ARQA20",
+      "name": "Desenho Projetivo"
+    },
+    {
+      "id": 79,
+      "code": "ARQA24",
+      "name": "Geometria Analítica"
+    },
+    {
+      "id": 80,
+      "code": "ARQA21",
+      "name": "Física das Estruturas"
+    },
+    {
+      "id": 81,
+      "code": "ARQA22",
+      "name": "Oficina de Projeto II"
+    },
+    {
+      "id": 82,
+      "code": "ARQA23",
+      "name": "História da Arquitetura I"
+    },
+    {
+      "id": 83,
+      "code": "ARQA25",
+      "name": "Informática e Desenho I"
+    },
+    {
+      "id": 84,
+      "code": "ARQA26",
+      "name": "Estruturas I"
+    },
+    {
+      "id": 85,
+      "code": "ARQA27",
+      "name": "Estética"
+    },
+    {
+      "id": 87,
+      "code": "ARQA28",
+      "name": "Conforto do Ambiente Construído I"
+    },
+    {
+      "id": 88,
+      "code": "ARQA33",
+      "name": "Oficina de Projeto III"
+    },
+    {
+      "id": 89,
+      "code": "ARQA34",
+      "name": "Materiais de Construção I"
+    },
+    {
+      "id": 90,
+      "code": "ARQA35",
+      "name": "Topografia Instrumental"
+    },
+    {
+      "id": 91,
+      "code": "ARQA36",
+      "name": "História da Arquitetura II"
+    },
+    {
+      "id": 93,
+      "code": "ARQA38",
+      "name": "Estruturas II"
+    },
+    {
+      "id": 94,
+      "code": "ARQA40",
+      "name": "Materiais de Construção II"
+    },
+    {
+      "id": 95,
+      "code": "ARQA41",
+      "name": "Conforto do Ambiente Construído II"
+    },
+    {
+      "id": 96,
+      "code": "ARQA42",
+      "name": "História da Arquitetura III"
+    },
+    {
+      "id": 97,
+      "code": "ARQA46",
+      "name": "Oficina de Projeto V"
+    },
+    {
+      "id": 98,
+      "code": "ARQA43",
+      "name": "Instalações Hidro-Sanitárias"
+    },
+    {
+      "id": 99,
+      "code": "ARQA44",
+      "name": "Estruturas III"
+    },
+    {
+      "id": 100,
+      "code": "ARQA45",
+      "name": "Construção I"
+    },
+    {
+      "id": 101,
+      "code": "ARQA39",
+      "name": "Oficina de Projeto IV"
+    },
+    {
+      "id": 102,
+      "code": "ARQA47",
+      "name": "Estruturas IV"
+    },
+    {
+      "id": 104,
+      "code": "ARQA49",
+      "name": "Construções II"
+    },
+    {
+      "id": 105,
+      "code": "ARQA50",
+      "name": "Estudos Sócio-Ambientais"
+    },
+    {
+      "id": 106,
+      "code": "ARQA51",
+      "name": "História da Arquitetura IV"
+    },
+    {
+      "id": 107,
+      "code": "ARQA52",
+      "name": "Tecnologia da Conservação e do Restauro"
+    },
+    {
+      "id": 108,
+      "code": "ARQA53",
+      "name": "Paisagismo"
+    },
+    {
+      "id": 109,
+      "code": "ARQA54",
+      "name": "Organização do Trabalho"
+    },
+    {
+      "id": 110,
+      "code": "ARQA55",
+      "name": "Legislação e Ética"
+    },
+    {
+      "id": 111,
+      "code": "ARQA56",
+      "name": "Estágio Supervisionado"
+    },
+    {
+      "id": 112,
+      "code": "ARQA57",
+      "name": "Trabalho Final de Graduação"
+    },
+    {
+      "id": 113,
+      "code": "ARQB01",
+      "name": "Arquitetura Efêmera"
+    },
+    {
+      "id": 114,
+      "code": "ARQA99",
+      "name": "Informática Aplicada à Análise Estrutural"
+    },
+    {
+      "id": 115,
+      "code": "ARQA75",
+      "name": "Introdução ao Geoprocessamento"
+    },
+    {
+      "id": 116,
+      "code": "ARQA98",
+      "name": "Parcelamento Urbano e Sistema Viário"
+    },
+    {
+      "id": 117,
+      "code": "ARQ010",
+      "name": "Perspectiva"
+    },
+    {
+      "id": 118,
+      "code": "ARQA76",
+      "name": "Tópicos Especiais em Arquitetura e Urbanismo"
+    },
+    {
+      "id": 119,
+      "code": "ARQ016",
+      "name": "Atelier I"
+    },
+    {
+      "id": 120,
+      "code": "ARQ018",
+      "name": "Introducao  a  Arquitetura  e Urbanismo"
+    },
+    {
+      "id": 121,
+      "code": "ARQ022",
+      "name": "Matematica II"
+    },
+    {
+      "id": 122,
+      "code": "ARQ051",
+      "name": "Expressao Grafica"
+    },
+    {
+      "id": 123,
+      "code": "FCH043",
+      "name": "Estetica - Filosofia das Artes"
+    },
+    {
+      "id": 124,
+      "code": "ARQ019",
+      "name": "Matematica I"
+    },
+    {
+      "id": 125,
+      "code": "ARQ020",
+      "name": "Estudos Sociais e Ambientais"
+    },
+    {
+      "id": 126,
+      "code": "ARQ021",
+      "name": "Historia da Arquitetura e Urbanismo  I"
+    },
+    {
+      "id": 127,
+      "code": "FIS130",
+      "name": "Fisica Geral I-B"
+    },
+    {
+      "id": 129,
+      "code": "ARQ024",
+      "name": "Atelier II"
+    },
+    {
+      "id": 130,
+      "code": "ARQ025",
+      "name": "Conforto Ambiental I"
+    },
+    {
+      "id": 131,
+      "code": "ARQ026",
+      "name": "Informatica  Aplicada  a  Arquitetura  e  Urbanismo I"
+    },
+    {
+      "id": 132,
+      "code": "ENG021",
+      "name": "Mecanica das Estruturas"
+    },
+    {
+      "id": 133,
+      "code": "ENG022",
+      "name": "Materiais de Construção"
+    },
+    {
+      "id": 134,
+      "code": "ARQ027",
+      "name": "Historia da  Arquitetura  e Urbanismo  II"
+    },
+    {
+      "id": 135,
+      "code": "ARQ030",
+      "name": "Conforto Ambiental II"
+    },
+    {
+      "id": 136,
+      "code": "ARQ046",
+      "name": "Etica"
+    },
+    {
+      "id": 137,
+      "code": "ENG023",
+      "name": "Tecnicas Construtivas I"
+    },
+    {
+      "id": 138,
+      "code": "ENG025",
+      "name": "Introducao  aos Sistemas  Estruturais"
+    },
+    {
+      "id": 139,
+      "code": "ARQ031",
+      "name": "Atelier III"
+    },
+    {
+      "id": 140,
+      "code": "ARQ032",
+      "name": "Historia  e. Teoria da  Arquitetura . Brasileira"
+    },
+    {
+      "id": 141,
+      "code": "ARQ033",
+      "name": "Sistemas Estruturais I-A"
+    },
+    {
+      "id": 142,
+      "code": "ARQ034",
+      "name": "Conforto Ambiental III"
+    },
+    {
+      "id": 143,
+      "code": "ARQ035",
+      "name": "Informatica  Aplicada  a  Arquitetura  e. Urbanismo  II"
+    },
+    {
+      "id": 144,
+      "code": "ENG024",
+      "name": "Técnicas Construtivas II"
+    },
+    {
+      "id": 145,
+      "code": "ARQ036",
+      "name": "Tecnicas Retrospectivas"
+    },
+    {
+      "id": 146,
+      "code": "ARQ037",
+      "name": "Sistemas Estruturais II-A"
+    },
+    {
+      "id": 147,
+      "code": "ARQ038",
+      "name": "Instalacoes I"
+    },
+    {
+      "id": 148,
+      "code": "ARQ039",
+      "name": "Instalacoes II"
+    },
+    {
+      "id": 149,
+      "code": "ARQ040",
+      "name": "Organizacao do Trabalho"
+    },
+    {
+      "id": 150,
+      "code": "ARQ029",
+      "name": "Historia do Urbanismo e do Planejamento Urbano"
+    },
+    {
+      "id": 151,
+      "code": "ARQ041",
+      "name": "Atelier IV"
+    },
+    {
+      "id": 153,
+      "code": "ARQ043",
+      "name": "Estagio  Curricular"
+    },
+    {
+      "id": 154,
+      "code": "ARQ045",
+      "name": "Trabalho Final de Graduacao"
+    },
+    {
+      "id": 155,
+      "code": "ARQ050",
+      "name": "Arquitetura: Continuidade e Inovacão"
+    },
+    {
+      "id": 156,
+      "code": "ARQ140",
+      "name": "Atelier Cooperativo de Simulacao Digital"
+    },
+    {
+      "id": 157,
+      "code": "ARQ136",
+      "name": "Computacao  Grafica  Aplicada  I"
+    },
+    {
+      "id": 158,
+      "code": "ARQ133",
+      "name": "Croquis Aplicado a  Paisagem Urbana"
+    },
+    {
+      "id": 159,
+      "code": "ARQ004",
+      "name": "Descritiva II"
+    },
+    {
+      "id": 160,
+      "code": "ARQ132",
+      "name": "Desenho Arquitetonico II"
+    },
+    {
+      "id": 161,
+      "code": "GEO135",
+      "name": "Fotogrametria, Fotointerpretacao e Const de Blocos Diagramas"
+    },
+    {
+      "id": 162,
+      "code": "EBA003",
+      "name": "Historia da Arte III"
+    },
+    {
+      "id": 163,
+      "code": "ARQ139",
+      "name": "Introducao  a  Arquitetura  da  Paisagem"
+    },
+    {
+      "id": 164,
+      "code": "ARQ137",
+      "name": "Introdução  a  Computação  Gráfica"
+    },
+    {
+      "id": 165,
+      "code": "ARQ044",
+      "name": "Introducao  ao Trabalho Final de Graduacao"
+    },
+    {
+      "id": 166,
+      "code": "MAT115",
+      "name": "Introducao ao Processamento de Dados"
+    },
+    {
+      "id": 167,
+      "code": "ARQ049",
+      "name": "Laboratorio de Conforto Ambiental  III"
+    },
+    {
+      "id": 168,
+      "code": "ARQ047",
+      "name": "Laboratório de Conforto Ambiental I"
+    },
+    {
+      "id": 169,
+      "code": "ARQ048",
+      "name": "Laboratório de Conforto Ambiental II"
+    },
+    {
+      "id": 170,
+      "code": "ARQA10",
+      "name": "Paisagem Urbana - Configuração dos Espaços Abertos"
+    },
+    {
+      "id": 171,
+      "code": "ARQ142",
+      "name": "Praticas em Tecnologias Construtivas"
+    },
+    {
+      "id": 172,
+      "code": "ARQ143",
+      "name": "Praticas em Tecnologias Inovadoras"
+    },
+    {
+      "id": 173,
+      "code": "ARQ135",
+      "name": "Programacao  Visual e os Espacos Urbanos e Arquitetonicos"
+    },
+    {
+      "id": 174,
+      "code": "EBA008",
+      "name": "Tecnica da Representacao Grafica I"
+    },
+    {
+      "id": 175,
+      "code": "ARQ141",
+      "name": "Tópicos de Arquitetura e Urbanismo"
+    },
+    {
+      "id": 176,
+      "code": "ICI011",
+      "name": "Fundamentos da Informação"
+    },
+    {
+      "id": 177,
+      "code": "ICI021",
+      "name": "Tecnologia da Informacao"
+    },
+    {
+      "id": 178,
+      "code": "ICI201",
+      "name": "Introducao à Arquivologia"
+    },
+    {
+      "id": 179,
+      "code": "ICI218",
+      "name": "Arquivo e Cultura Brasileira"
+    },
+    {
+      "id": 180,
+      "code": "ADM001",
+      "name": "Introducao à  Administracao"
+    },
+    {
+      "id": 181,
+      "code": "ICI202",
+      "name": "Lab. Arquivo Corrente I"
+    },
+    {
+      "id": 183,
+      "code": "LET044",
+      "name": "Língua Portuguesa como Instrumento de Comunicação N-100"
+    }
+  ]
+}
