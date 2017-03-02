@@ -15,6 +15,7 @@ import ufba.meuhorario.model.DisciplineCourse;
 
 /**
  * Created by Diego Novaes on 28/02/2017.
+ * This class applies for Discipline and DisciplineCourse class-models;
  */
 public class DisciplinesDAO extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
@@ -87,12 +88,14 @@ public class DisciplinesDAO extends SQLiteOpenHelper {
     public List<Discipline> getListDisciplines(Long course_id){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        if(getCountDisciplinesCourses(course_id) == 0){
+        //TODO: uncomment this after all working correctly
+        /*if(getCountDisciplinesCourses(course_id) == 0){
             List<Discipline> disciplines = new ArrayList<Discipline>();
             return disciplines;
-        }
+        }*/
 
-        Cursor c =  db.rawQuery("SELECT d.id, d.name, d.code FROM ? d INNER JOIN ? dc ON d.id = dc.discipline_id  WHERE dc.course_id = ?", new String[]{TABLE_NAME, TABLE_NAME_RELATIVE, String.valueOf(course_id)});
+        //Cursor c =  db.rawQuery("SELECT d.id, d.name, d.code FROM ? d INNER JOIN ? dc ON d.id = dc.discipline_id  WHERE dc.course_id = ?", new String[]{TABLE_NAME, TABLE_NAME_RELATIVE, String.valueOf(course_id)});
+        Cursor c =  db.query(TABLE_NAME, null, null, null, null, null, null, "10");
         List<Discipline> disciplines= new ArrayList<Discipline>();
 
         while (c.moveToNext()) {
@@ -110,11 +113,26 @@ public class DisciplinesDAO extends SQLiteOpenHelper {
         return disciplines;
     }
 
-    private int getCountDisciplinesCourses(Long course_id) {
+    public int getCountDisciplinesCourses(Long course_id) {
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor c =  db.rawQuery("SELECT COUNT(*) FROM "+TABLE_NAME_RELATIVE+" WHERE course_id = "+course_id, null);
         //Cursor c =  db.rawQuery("SELECT COUNT(*) FROM ? WHERE course_id = ?", new String[]{TABLE_NAME_RELATIVE, String.valueOf(course_id)});
+
+        int count;
+        if (c != null){
+            c.moveToNext();
+            count =  c.getInt(0);
+        }else{
+            count = 0;
+        }
+        c.close();
+        return count;
+    }
+
+    public int getCountDisciplines(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c =  db.rawQuery("SELECT COUNT(*) FROM "+TABLE_NAME, null);
 
         int count;
         if (c != null){

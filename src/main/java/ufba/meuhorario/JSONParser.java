@@ -1,20 +1,30 @@
 package ufba.meuhorario;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
+import ufba.meuhorario.adapter.ListCoursesAdapter;
 import ufba.meuhorario.dao.AreaDAO;
 import ufba.meuhorario.dao.CourseDAO;
+import ufba.meuhorario.dao.DisciplinesDAO;
 import ufba.meuhorario.model.Area;
 import ufba.meuhorario.model.Course;
+import ufba.meuhorario.model.Discipline;
+import ufba.meuhorario.model.DisciplineCourse;
 
 /**
  * Created by Diego Novaes on 24/02/2017.
@@ -23,20 +33,29 @@ import ufba.meuhorario.model.Course;
 public class JSONParser extends AsyncTask<Void, Void, Void> {
 
     private String TAG = JSONParser.class.getSimpleName();
-    private final Activity MainActivity;
+    private Activity MainActivity;
     private String jsonUrl;
     private String jsonArrayName;
+    private ProgressDialog progressDialog;
 
     public JSONParser(Activity mainActivity, String url, String arrayName) {
         MainActivity = mainActivity;
         jsonUrl = url;
         jsonArrayName =  arrayName;
+        progressDialog = new ProgressDialog(MainActivity);
     }
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        Toast.makeText(MainActivity,"Atualizando. Por favor espere...",Toast.LENGTH_LONG).show();
+        progressDialog.setMessage("Atualizando. Por favor espere...");
+        progressDialog.show();
+        progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            public void onCancel(DialogInterface arg0) {
+                JSONParser.this.cancel(true);
+                Toast.makeText(MainActivity.getApplicationContext(), "Captura de dados cancelada :(",Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     @Override
@@ -45,7 +64,7 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
 
         //Making a request to url and getting response
         String jsonStr = handler.makeServiceCall(jsonUrl);
-        //Log.e(TAG, "Response from url: " + jsonStr);
+
         if (jsonStr != null){
             try{
                 JSONObject jsonObj = new JSONObject(jsonStr);
@@ -62,6 +81,11 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
                     case "courses":
                         CourseDAO courseDAO = new CourseDAO(MainActivity);
                         StoreinDatabase(jsonArray, courseDAO);
+                        break;
+                    case "disciplines":
+                    case "course_disciplines":
+                        DisciplinesDAO disciDAO = new DisciplinesDAO(MainActivity);
+                        StoreinDatabase(jsonArray, disciDAO, jsonArrayName);
                         break;
                     default:
                         MainActivity.runOnUiThread(new Runnable() {
@@ -93,6 +117,14 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
         }
 
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        if (progressDialog.isShowing()) progressDialog.dismiss();
+        MainActivity.recreate();
+        //Toast.makeText(MainActivity,"Captura de dados MeuHorario finalizada.",Toast.LENGTH_LONG).show();
     }
 
     private void StoreinDatabase(JSONArray jsonArray, AreaDAO dao) throws JSONException {
@@ -144,9 +176,33 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
         }
     }
 
-    @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
-        Toast.makeText(MainActivity,"Meuhorario data retrieving is Complete!",Toast.LENGTH_LONG).show();
+    public static void StoreinDatabase(JSONArray jsonArray, DisciplinesDAO dao, String arrayName) throws JSONException {
+        if(arrayName.equals("disciplines")){
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject c = jsonArray.getJSONObject(i);
+                Discipline disci = new Discipline();
+
+                disci.setId(Long.parseLong(c.getString("id")));
+                disci.setCode(c.getString("code"));
+                disci.setName(c.getString("name"));
+
+                dao.insertData(disci);
+                dao.close();
+            }
+        }else if(arrayName.equals("course_disciplines")) {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject c = jsonArray.getJSONObject(i);
+                DisciplineCourse dc = new DisciplineCourse();
+
+                dc.setId(Long.parseLong(c.getString("id")));
+                dc.setSemester(Long.parseLong(c.getString("semester")));
+                dc.setNature(c.getString("nature"));
+                dc.setCourse_id(Long.parseLong(c.getString("course_id")));
+                dc.setDiscipline_id(Long.parseLong(c.getString("discipline_id")));
+
+                dao.insertData(dc);
+                dao.close();
+            }
+        }
     }
 }

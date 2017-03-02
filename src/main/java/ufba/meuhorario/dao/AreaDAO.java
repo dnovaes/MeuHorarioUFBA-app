@@ -23,6 +23,9 @@ public class AreaDAO extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "MeuHorario";
     private static final String TABLE_NAME = "Area";
+    private static final String TABLE_NAME_COURSE = "Course";
+    private static final String TABLE_NAME_DISCIPLINE = "Discipline";
+    private static final String TABLE_NAME_DC = "DisciplineCourse";
 
     public AreaDAO(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -35,15 +38,15 @@ public class AreaDAO extends SQLiteOpenHelper {
                         " (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT)"
         );
         db.execSQL(
-                " CREATE TABLE Course" +
+                " CREATE TABLE "+TABLE_NAME_COURSE+
                         " (id INTEGER PRIMARY KEY, name TEXT NOT NULL, code INTEGER, curriculum INTEGER, area_id INTEGER)"
         );
         db.execSQL(
-                " CREATE TABLE Discipline"+
+                " CREATE TABLE "+TABLE_NAME_DISCIPLINE+
                         " (id INTEGER PRIMARY KEY, code TEXT NOT NULL, name TEXT NOT NULL)"
         );
         db.execSQL(
-                " CREATE TABLE DisciplineCourse"+
+                " CREATE TABLE "+TABLE_NAME_DC+
                         " (id INTEGER PRIMARY KEY, semester INTEGER, nature TEXT NOT NULL, course_id INTEGER NOT NULL, discipline_id NOT NULL)"
         );
     }

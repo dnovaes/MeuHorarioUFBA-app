@@ -9,9 +9,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -26,7 +23,7 @@ import ufba.meuhorario.model.Course;
 public class CoursesActivity extends AppCompatActivity{
 
 
-    private String meuHorarioJson = "https://gist.githubusercontent.com/dnovaes/97a966d586640d1935ee604afe7e7a15/raw/6df5abd9811c18d74236853a7d9dc302d0817381/meuhorario_courses";
+    private String meuHorarioJson = "https://gist.githubusercontent.com/dnovaes/97a966d586640d1935ee604afe7e7a15/raw/3478ce01f2c290684a0d8db500a5f89c079c4f64/meuhorario_courses.json";
     private ListView coursesList;
     private Long area_id;
 
@@ -40,7 +37,7 @@ public class CoursesActivity extends AppCompatActivity{
 
         area_id = area.getId();
 
-        TextView areaTitleView = (TextView) findViewById(R.id.course_area_title);
+        TextView areaTitleView = (TextView) findViewById(R.id.activity_title);
         areaTitleView.setText(area.getName());
 
         coursesList = (ListView)findViewById(R.id.list_courses);
@@ -57,6 +54,9 @@ public class CoursesActivity extends AppCompatActivity{
                 }
             }
         );
+
+        //check iif jsonData exists on database
+        checkJsonData();
     }
 
     @Override
@@ -70,18 +70,24 @@ public class CoursesActivity extends AppCompatActivity{
 
         //Select all the areas on the SQLite and form a List<Area>
         List<Course> courses = dao.getListCourses(area_id);
-
-        if(courses.isEmpty()){
-            // Creating a anonymous JsonParser instance
-            // download json and insert into SQLite
-            Toast.makeText(this, "Atualizando dados de 'courses' ...", Toast.LENGTH_SHORT).show();
-            new JSONParser(this, meuHorarioJson, "courses").execute();
-            courses = dao.getListCourses(area_id);
-        }
         dao.close();
 
         ListCoursesAdapter adapter = new ListCoursesAdapter(courses, this);
         coursesList.setAdapter(adapter);
+    }
+
+    public void checkJsonData() {
+        CourseDAO dao = new CourseDAO(this);
+
+        //Select all the areas on the SQLite and form a List<Area>
+        List<Course> courses = dao.getListCourses(area_id);
+
+        if(courses.isEmpty()){
+            // Creating a anonymous JsonParser instance
+            // download json and insert into SQLite
+            new JSONParser(this, meuHorarioJson, "courses").execute();
+        }
+        dao.close();
     }
 
     @Override
