@@ -55,8 +55,8 @@ public class CoursesActivity extends AppCompatActivity{
             }
         );
 
-        //check iif jsonData exists on database
-        checkJsonData();
+        //try to get JsonData if database is empty everytime the instance is created.
+        getJsonData();
     }
 
     @Override
@@ -66,6 +66,7 @@ public class CoursesActivity extends AppCompatActivity{
     }
 
     private void loadList() {
+
         CourseDAO dao = new CourseDAO(this);
 
         //Select all the areas on the SQLite and form a List<Area>
@@ -76,7 +77,7 @@ public class CoursesActivity extends AppCompatActivity{
         coursesList.setAdapter(adapter);
     }
 
-    public void checkJsonData() {
+    public void getJsonData() {
         CourseDAO dao = new CourseDAO(this);
 
         //Select all the areas on the SQLite and form a List<Area>
@@ -85,7 +86,7 @@ public class CoursesActivity extends AppCompatActivity{
         if(courses.isEmpty()){
             // Creating a anonymous JsonParser instance
             // download json and insert into SQLite
-            new JSONParser(this, meuHorarioJson, "courses").execute();
+            new JSONParser(this, meuHorarioJson, "courses", area_id).execute();
         }
         dao.close();
     }

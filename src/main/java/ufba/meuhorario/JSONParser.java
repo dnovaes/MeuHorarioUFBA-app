@@ -4,23 +4,16 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.List;
-
-import ufba.meuhorario.adapter.ListCoursesAdapter;
 import ufba.meuhorario.dao.AreaDAO;
 import ufba.meuhorario.dao.CourseDAO;
-import ufba.meuhorario.dao.DisciplinesDAO;
+import ufba.meuhorario.dao.DisciplineDAO;
 import ufba.meuhorario.model.Area;
 import ufba.meuhorario.model.Course;
 import ufba.meuhorario.model.Discipline;
@@ -38,11 +31,17 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
     private String jsonArrayName;
     private ProgressDialog progressDialog;
 
-    public JSONParser(Activity mainActivity, String url, String arrayName) {
+    private Long args1;
+    private Long args2;
+
+    public JSONParser(Activity mainActivity, String url, String arrayName, Long... args) {
         MainActivity = mainActivity;
         jsonUrl = url;
         jsonArrayName =  arrayName;
         progressDialog = new ProgressDialog(MainActivity);
+
+        args1 = args.length > 0 ? args[0]: 0;
+        args2 = args.length > 1 ? args[1]: 0;
     }
 
     @Override
@@ -62,58 +61,87 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
     protected Void doInBackground(Void... params) {
         HttpHandler handler = new HttpHandler();
 
-        //Making a request to url and getting response
-        String jsonStr = handler.makeServiceCall(jsonUrl);
+        try{
 
-        if (jsonStr != null){
-            try{
-                JSONObject jsonObj = new JSONObject(jsonStr);
+            //Making a request to url and getting response
+            String jsonStr;
+            JSONObject jsonObj;
+            JSONArray jsonArray;
+            //looping through All areas, courses
+            switch (jsonArrayName){
+                case "areas":
+                    //Making a request to url and getting response
+                    jsonStr = handler.makeServiceCall(jsonUrl);
+                    jsonObj = new JSONObject(jsonStr);
+                    // Getting JSON Array
+                    jsonArray = jsonObj.getJSONArray(jsonArrayName);
+                    AreaDAO areaDAO = new AreaDAO(MainActivity);
+                    StoreinDatabase(jsonArray, areaDAO);
+                    break;
+                case "courses":
+                    jsonStr = handler.makeServiceCall(jsonUrl);
+                    jsonObj = new JSONObject(jsonStr);
+                    // Getting JSON Array
+                    jsonArray = jsonObj.getJSONArray(jsonArrayName);
+                    CourseDAO courseDAO = new CourseDAO(MainActivity);
+                    StoreinDatabase(jsonArray, courseDAO);
+                    break;
+                case "disciplines":
+                    //ignore: incomplete.
+                    /*jsonUrl = "http://localhost/meuhorario/generateJson.php?t=course&course_id="+args1+"&course_id="+args2;
+                    jsonStr = handler.makeServiceCall(jsonUrl);
+                    jsonObj = new JSONObject(jsonStr);
+                    // Getting JSON Array
+                    jsonArray = jsonObj.getJSONArray();
 
-                // Getting JSON Array node
-                JSONArray jsonArray = jsonObj.getJSONArray(jsonArrayName);
+                    DisciplineDAO disciDAO = new DisciplineDAO(MainActivity);
+                    StoreinDatabase(jsonArray, disciDAO, jsonArrayName);*/
 
-                //looping through All areas, courses
-                switch (jsonArrayName){
-                    case "areas":
-                        AreaDAO areaDAO = new AreaDAO(MainActivity);
-                        StoreinDatabase(jsonArray, areaDAO);
-                        break;
-                    case "courses":
-                        CourseDAO courseDAO = new CourseDAO(MainActivity);
-                        StoreinDatabase(jsonArray, courseDAO);
-                        break;
-                    case "disciplines":
-                    case "course_disciplines":
-                        DisciplinesDAO disciDAO = new DisciplinesDAO(MainActivity);
-                        StoreinDatabase(jsonArray, disciDAO, jsonArrayName);
-                        break;
-                    default:
-                        MainActivity.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(MainActivity.getApplicationContext(),
-                                        "None of the Arrays downloaded. Contact support!",
-                                        Toast.LENGTH_LONG).show();
-                            }
-                        });
-                        break;
-                }
+                    //Download disciplines from API
+                    jsonUrl = "http://192.168.25.6/meuhorario/generateJson.php?t=discipline&cid="+args1;
+                    jsonStr = handler.makeServiceCall(jsonUrl);
+                    jsonArray = new JSONArray(jsonStr);
 
+                    //Insert discipline at local database (sqlite)
+                    DisciplineDAO DisciDAO = new DisciplineDAO(MainActivity);
+                    StoreinDatabase(jsonArray, DisciDAO, "disciplines");
+                case "course_disciplines":
 
+                    //Download disciplinecourse form API
+                    jsonUrl = "http://192.168.25.6/meuhorario/generateJson.php?t=disciplinecourse&cid="+args1;
+                    jsonStr = handler.makeServiceCall(jsonUrl);
+                    jsonArray = new JSONArray(jsonStr);
 
-            }catch (final JSONException e) {
-                Log.e(TAG, "Json parsing error: " + e.getMessage());
-
-                MainActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(MainActivity.getApplicationContext(),
-                                "Json parsing error: " + e.getMessage(),
-                                Toast.LENGTH_LONG).show();
-                    }
-                });
-
+                    //Insert disciplinecourse at local database (SQlite)
+                    DisciplineDAO corDisciDAO = new DisciplineDAO(MainActivity);
+                    StoreinDatabase(jsonArray, corDisciDAO, "course_disciplines");
+                    break;
+                default:
+                    MainActivity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(MainActivity.getApplicationContext(),
+                                    "None of the Arrays downloaded. Contact support!",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    });
+                    break;
             }
+
+
+
+        }catch (final JSONException e) {
+            Log.e(TAG, "Json parsing error: " + e.getMessage());
+
+            MainActivity.runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(MainActivity.getApplicationContext(),
+                            "Json parsing error: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }
+            });
+
         }
 
         return null;
@@ -152,31 +180,16 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
             course.setCode(c.getLong("code"));
             course.setCurriculum(c.getLong("curriculum"));
 
+            //if course doesnt have a area, then it should be here. So it isn't inserted on the database.
             if (!c.isNull("area_id")) {
                 course.setArea_id(c.getLong("area_id"));
                 dao.insertData(course);
             }
-            /*else{
-                MainActivity.runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        Toast.makeText(MainActivity, "area_id NULLLLLLL!", Toast.LENGTH_SHORT).show();
-                    }
-                });
-            }*/
-            //Example
-            /*Object data = json.get("username");
-            if (data instanceof Integer || data instanceof Double || data instanceof Long) {
-                // handle number ;
-            }
-            if (data == JSONObject.NULL) {
-                // hanle null;
-            }*/
             dao.close();
         }
     }
 
-    public static void StoreinDatabase(JSONArray jsonArray, DisciplinesDAO dao, String arrayName) throws JSONException {
+    public static void StoreinDatabase(JSONArray jsonArray, DisciplineDAO dao, String arrayName) throws JSONException {
         if(arrayName.equals("disciplines")){
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject c = jsonArray.getJSONObject(i);
@@ -195,7 +208,11 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
                 DisciplineCourse dc = new DisciplineCourse();
 
                 dc.setId(Long.parseLong(c.getString("id")));
-                dc.setSemester(Long.parseLong(c.getString("semester")));
+                if(c.isNull("semester")){
+                    dc.setSemester(Long.parseLong("0"));
+                }else{
+                    dc.setSemester(Long.parseLong(c.getString("semester")));
+                }
                 dc.setNature(c.getString("nature"));
                 dc.setCourse_id(Long.parseLong(c.getString("course_id")));
                 dc.setDiscipline_id(Long.parseLong(c.getString("discipline_id")));

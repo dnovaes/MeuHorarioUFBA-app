@@ -17,13 +17,13 @@ import ufba.meuhorario.model.DisciplineCourse;
  * Created by Diego Novaes on 28/02/2017.
  * This class applies for Discipline and DisciplineCourse class-models;
  */
-public class DisciplinesDAO extends SQLiteOpenHelper {
+public class DisciplineDAO extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "MeuHorario";
     private static final String TABLE_NAME = "Discipline";
     private static final String TABLE_NAME_RELATIVE = "DisciplineCourse";
 
-    public DisciplinesDAO(Context context){
+    public DisciplineDAO(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -94,15 +94,15 @@ public class DisciplinesDAO extends SQLiteOpenHelper {
             return disciplines;
         }*/
 
-        //Cursor c =  db.rawQuery("SELECT d.id, d.name, d.code FROM ? d INNER JOIN ? dc ON d.id = dc.discipline_id  WHERE dc.course_id = ?", new String[]{TABLE_NAME, TABLE_NAME_RELATIVE, String.valueOf(course_id)});
-        Cursor c =  db.query(TABLE_NAME, null, null, null, null, null, null, "10");
+        //Query that returns disciplines related to a course_id
+        Cursor c =  db.rawQuery("SELECT d.id, d.name, d.code FROM "+TABLE_NAME+" d INNER JOIN "+TABLE_NAME_RELATIVE+" dc ON d.id = dc.discipline_id  WHERE dc.course_id = ?", new String[]{String.valueOf(course_id)});
+        //Cursor c =  db.query(TABLE_NAME, null, null, null, null, null, null, "10");
         List<Discipline> disciplines= new ArrayList<Discipline>();
 
+        //create a list of discipline base on the returned query to show to user
         while (c.moveToNext()) {
             Discipline discipline = new Discipline();
-            //String areaStr;
 
-            // Preencha todos os dados do area como no exemplo da linha abaixo area.setId(c.getLong(c.getColumnIndex("id")));
             discipline.setId((c.getLong(c.getColumnIndex("id"))));
             discipline.setName(c.getString(c.getColumnIndex("name")));
             discipline.setCode(c.getString(c.getColumnIndex("code")));
@@ -132,6 +132,7 @@ public class DisciplinesDAO extends SQLiteOpenHelper {
 
     public int getCountDisciplines(){
         SQLiteDatabase db = this.getReadableDatabase();
+        //TODO: rework query to count just the disciplines related to a course_id
         Cursor c =  db.rawQuery("SELECT COUNT(*) FROM "+TABLE_NAME, null);
 
         int count;

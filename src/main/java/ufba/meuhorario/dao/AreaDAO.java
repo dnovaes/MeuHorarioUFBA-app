@@ -47,7 +47,7 @@ public class AreaDAO extends SQLiteOpenHelper {
         );
         db.execSQL(
                 " CREATE TABLE "+TABLE_NAME_DC+
-                        " (id INTEGER PRIMARY KEY, semester INTEGER, nature TEXT NOT NULL, course_id INTEGER NOT NULL, discipline_id NOT NULL)"
+                        " (id INTEGER PRIMARY KEY, semester INTEGER, nature TEXT NOT NULL, course_id INTEGER NOT NULL, discipline_id INTEGER NOT NULL)"
         );
     }
 
