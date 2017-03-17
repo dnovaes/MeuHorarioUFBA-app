@@ -18,6 +18,7 @@
         </activity>
         <activity android:name=".CoursesActivity"></activity>
         <activity android:name=".DisciplinesActivity"></activity>
+        <activity android:name=".InfoDisciplineActivity"></activity>
     </application>
 
 </manifest>

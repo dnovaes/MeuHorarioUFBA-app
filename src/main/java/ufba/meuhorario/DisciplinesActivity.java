@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -45,6 +47,18 @@ public class DisciplinesActivity extends AppCompatActivity {
         titleView.setText(course.getName());
 
         getJsonData();
+
+        disciplinesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+               @Override
+               public void onItemClick(AdapterView<?> list, View view, int position, long id) {
+                   Discipline discipline = (Discipline) list.getItemAtPosition(position);
+
+                   Intent intentDisciplines = new Intent(DisciplinesActivity.this.getApplicationContext(), InfoDisciplineActivity.class);
+                   intentDisciplines.putExtra("discipline", discipline);
+                   startActivity(intentDisciplines);
+               }
+           }
+        );
     }
 
     @Override
@@ -85,7 +99,7 @@ public class DisciplinesActivity extends AppCompatActivity {
         dao.close();
     }
 
-    private void loadJsonFromLocalFile(){
+    /*private void loadJsonFromLocalFile(){
         DisciplineDAO dao = new DisciplineDAO(this);
 
         InputStream is = this.getResources().openRawResource(R.raw.meuhorario_disciplines);
@@ -111,5 +125,5 @@ public class DisciplinesActivity extends AppCompatActivity {
         }catch (Exception e) {
             e.printStackTrace();
         }
-    }
+    }*/
 }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/activity_infodisc"
+    android:background="@android:color/white"
+    android:scrollbars="vertical"
+    android:scrollbarAlwaysDrawVerticalTrack="true">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/infodisc_title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@color/backgroundLightRed"
+        android:scrollbars="vertical" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/infodisc_prereq_title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/rectangle"
+        android:text="Pré-requisitos:"
+        android:textAlignment="center"
+        android:scrollbars="vertical" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/infodisc_prereq_list"
+        android:background="@color/backgroundLightRed">
+    </ListView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:id="@+id/infodisc_classes_title"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:background="@drawable/rectangle"
+        android:text="Turmas ofertadas para o curso:"
+        android:textAlignment="center" />
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/infodisc_classes_list"
+        android:background="@color/backgroundLightRed">
+    </ListView>
+</LinearLayout>

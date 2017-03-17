@@ -12,7 +12,7 @@
         android:textSize="18sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:background="@color/backgroundRed"
+        android:background="@color/backgroundLightRed"
         />
     <ListView
         android:layout_width="match_parent"

@@ -1,9 +1,11 @@
 package ufba.meuhorario.model;
 
+import java.io.Serializable;
+
 /**
  * Created by Diego Novaes on 28/02/2017.
  */
-public class Discipline {
+public class Discipline implements Serializable{
     Long id;
     String code;
     String name;
