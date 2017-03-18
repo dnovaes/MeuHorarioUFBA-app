@@ -88,12 +88,6 @@ public class DisciplineDAO extends SQLiteOpenHelper {
     public List<Discipline> getListDisciplines(Long course_id){
         SQLiteDatabase db = this.getReadableDatabase();
 
-        //TODO: uncomment this after all working correctly
-        /*if(getCountDisciplinesCourses(course_id) == 0){
-            List<Discipline> disciplines = new ArrayList<Discipline>();
-            return disciplines;
-        }*/
-
         //Query that returns disciplines related to a course_id
         Cursor c =  db.rawQuery("SELECT d.id, d.name, d.code FROM "+TABLE_NAME+" d INNER JOIN "+TABLE_NAME_RELATIVE+" dc ON d.id = dc.discipline_id  WHERE dc.course_id = ?", new String[]{String.valueOf(course_id)});
         //Cursor c =  db.query(TABLE_NAME, null, null, null, null, null, null, "10");

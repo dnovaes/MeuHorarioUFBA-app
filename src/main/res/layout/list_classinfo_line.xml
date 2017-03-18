@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/list_classinfo_layoutid"
+    android:background="@color/backgroundLightRed"
+    android:layout_marginTop="6sp"
+    android:layout_marginRight="10sp"
+    android:layout_marginLeft="10sp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30sp"
+        android:orientation="horizontal"
+        android:background="@color/colorGrayedFields"
+        android:weightSum="2">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/line_classinfo_classnumber"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_weight="1"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:id="@+id/line_classinfo_vacancy"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_weight="1" />
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50sp"
+        android:background="@color/colorGrayedFields">
+
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/line_classinfo_schedule">
+        </ListView>
+    </RelativeLayout>
+
+</LinearLayout>

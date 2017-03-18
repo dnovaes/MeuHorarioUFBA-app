@@ -2,39 +2,37 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:id="@+id/list_disci_background"
+    android:orientation="vertical"
+    android:id="@+id/list_schedule_background"
     android:background="@color/backgroundLightRed">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:background="@color/colorGrayedFields"
-        android:layout_marginTop="6sp"
         android:layout_marginRight="10sp"
-        android:layout_marginLeft="10sp"
-        android:layout_marginBottom="6sp">
+        android:layout_marginLeft="10sp">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:id="@+id/line_disci_code"
-            android:textSize="18sp"
+            android:id="@+id/line_schedule_day"
+            android:textSize="14sp"
             android:textStyle="bold"
-            android:gravity="center"
-            android:paddingLeft="5sp"
-            android:paddingRight="5sp"
-            android:paddingTop="10sp" />
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="160dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/line_schedule_hour"
+            android:textSize="14sp"
+            android:gravity="center"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/line_disci_name"
+            android:id="@+id/line_schedule_profname"
             android:textSize="14sp"
-            android:gravity="center"
-            android:paddingLeft="5sp"
-            android:paddingRight="5sp"
-            android:paddingBottom="10sp" />
+            android:gravity="center"/>
 
     </LinearLayout>
 

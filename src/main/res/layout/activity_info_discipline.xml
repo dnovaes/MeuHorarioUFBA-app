@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/activity_infodisc"
-    android:background="@android:color/white"
-    android:scrollbars="vertical"
-    android:scrollbarAlwaysDrawVerticalTrack="true">
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:fillViewport="true" >
+
+<LinearLayout
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:id="@+id/activity_infodisc"
+android:background="@android:color/white"
+android:scrollbars="vertical"
+android:scrollbarAlwaysDrawVerticalTrack="true">
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:id="@+id/infodisc_title"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -18,7 +24,7 @@
         android:scrollbars="vertical" />
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:id="@+id/infodisc_prereq_title"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -35,7 +41,7 @@
     </ListView>
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="50dp"
         android:id="@+id/infodisc_classes_title"
         android:textSize="18sp"
         android:textStyle="bold"
@@ -50,3 +56,4 @@
         android:background="@color/backgroundLightRed">
     </ListView>
 </LinearLayout>
+</ScrollView>
