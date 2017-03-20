@@ -3,17 +3,11 @@ package ufba.meuhorario;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.List;
 
@@ -48,7 +42,7 @@ public class AreasActivity extends AppCompatActivity {
             }
         );
         //check if there is jsonData on the database(sqlite)
-        checkJsonData();
+        getJsonData();
     }
 
     @Override
@@ -61,10 +55,10 @@ public class AreasActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
             case R.id.jsonDwnld:
-                // Creating a anonymous JsonParser instance
-                // download json and insert into SQLite
-                //TODO: (MAYBE) trade third parameter later so JsonParser can update the whole database and not just 'areas'
-                checkJsonData();
+                // Truncate data and redownload content
+                AreaDAO dao= new AreaDAO(this);
+                dao.truncate("area");
+                getJsonData();
                 break;
         }
         return super.onOptionsItemSelected(item);
@@ -87,7 +81,7 @@ public class AreasActivity extends AppCompatActivity {
         areasList.setAdapter(adapter);
     }
 
-    public void checkJsonData() {
+    public void getJsonData() {
         AreaDAO dao = new AreaDAO(this);
 
         //Select all the areas on the SQLite and form a List<Area>

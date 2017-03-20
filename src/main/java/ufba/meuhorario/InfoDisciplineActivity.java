@@ -3,7 +3,9 @@ package ufba.meuhorario;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -15,9 +17,12 @@ import java.util.List;
 
 import ufba.meuhorario.adapter.ListClassesInfoAdapter;
 import ufba.meuhorario.adapter.ListDisciplinesAdapter;
+import ufba.meuhorario.dao.DisciplineClassDAO;
 import ufba.meuhorario.dao.DisciplineDAO;
+import ufba.meuhorario.dao.ScheduleDAO;
 import ufba.meuhorario.model.ClassInfo;
 import ufba.meuhorario.model.Discipline;
+import ufba.meuhorario.model.DisciplineClass;
 
 
 /**
@@ -56,7 +61,7 @@ public class InfoDisciplineActivity extends AppCompatActivity {
 
         //Set all the listviews invisible
         prereqList.setVisibility(View.GONE);
-        classesList.setVisibility(View.GONE);
+        //classesList.setVisibility(View.GONE);
 
         //disciplinesList = (ListView) findViewById(R.id.info_discipline_view);
         //TextView titleView = (TextView) findViewById(R.id.info_discipline_title);
@@ -91,6 +96,9 @@ public class InfoDisciplineActivity extends AppCompatActivity {
                 }
             }
         });
+
+        Log.e("InfoDisciplineActivity", "activity created");
+        getJsonData();
     }
 
     @Override
@@ -101,21 +109,59 @@ public class InfoDisciplineActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.json_download_option, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.jsonDwnld:
+                // truncate database: Schedules where discipline_class_id = ?
+                DisciplineClassDAO dao = new DisciplineClassDAO(this);
+                dao.truncate("schedules");
+                dao.truncate("disciplineclass");
+                dao.close();
+                getJsonData();
+                Log.e("teste", "teste");
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void loadList() {
 
-        //ClassDAO dao = new ClassDAO(this);
+        DisciplineClassDAO dao = new DisciplineClassDAO(this);
 
         //Select all the areas on the SQLite and form a List<Area>
         //TODO: if json is corretly do a function that pick preReq disciplines
         //List<Discipline> prereqs = dao.getListPreReqDisciplines(discipline_id);
-        List<ClassInfo> classesInfo =  new ArrayList<ClassInfo>();
-        //dao.close();
+        //List<ClassInfo> classesInfo =  new ArrayList<ClassInfo>();
+        List<ClassInfo> classesInfo =  dao.getListClassesInfo(discipline_id);
+
+        if(classesInfo.isEmpty()){
+            Log.e("InfoDisciplineActivity", "classInfo list is empty. loadList failed.");
+        }
+
+        dao.close();
 
         ListClassesInfoAdapter adapter = new ListClassesInfoAdapter(classesInfo, this);
         classesList.setAdapter(adapter);
+    }
+
+    public void getJsonData() {
+        DisciplineClassDAO dao = new DisciplineClassDAO(this);
+
+        //check if classInfo is empty
+        Integer count = dao.checkEmpty(discipline_id);
+
+        if(count == 0 ){
+            Log.e("InfoDisciplineActivity", "classInfo is empty. Downloading...");
+            // Create a anonymous JsonParser instance
+            // download JSON and insert into SQLite
+            new JSONParser(this, "", "classesinfo", new Long(discipline_id)).execute();
+        }
+        dao.close();
     }
 
 }

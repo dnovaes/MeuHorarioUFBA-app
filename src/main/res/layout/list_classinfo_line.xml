@@ -14,6 +14,7 @@
         android:layout_height="30sp"
         android:orientation="horizontal"
         android:background="@color/colorGrayedFields"
+        android:paddingBottom="5dp"
         android:weightSum="2">
 
         <TextView
@@ -22,6 +23,7 @@
             android:id="@+id/line_classinfo_classnumber"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:gravity="center"
             android:layout_weight="1"/>
         <TextView
             android:layout_width="0dp"
@@ -29,18 +31,22 @@
             android:id="@+id/line_classinfo_vacancy"
             android:textSize="18sp"
             android:textStyle="bold"
+            android:gravity="center"
             android:layout_weight="1" />
 
     </LinearLayout>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50sp"
+        android:layout_height="140dp"
         android:background="@color/colorGrayedFields">
 
         <ListView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/line_classinfo_schedule">
+            android:layout_height="wrap_content"
+            android:id="@+id/line_classinfo_schedule"
+            android:scrollbarFadeDuration="0"
+            android:scrollbarAlwaysDrawVerticalTrack="true"
+            android:scrollbarDefaultDelayBeforeFade="50000">
         </ListView>
     </RelativeLayout>
 

@@ -1,5 +1,8 @@
 package ufba.meuhorario.model;
 
+import android.content.Intent;
+import android.util.Log;
+
 /**
  * Created by Diego Novaes on 17/03/2017.
  */
@@ -11,7 +14,8 @@ public class Schedule {
     Long startMin;
     Long endHour;
     Long endMin;
-    Long profName;
+    String profName;
+    Long disciplineClassId;
 
     public Long getId() {
         return id;
@@ -21,11 +25,10 @@ public class Schedule {
         this.id = id;
     }
 
-    public String getDay() {
-
-        Integer dayInt = day.intValue();
-
-        switch (dayInt){
+    public Long getDay() {
+        return day;
+        /*Integer intDay = Integer.valueOf(String.valueOf(day));
+        switch (intDay){
             case 1:
                 return "SEG";
             case 2:
@@ -42,8 +45,9 @@ public class Schedule {
                 return "DOM";
             default:
                 //case 0 or other (im)possible choices...
+                Log.e("Schedule", "value of getDay: "+day);
                 return "CMB";
-        }
+        }*/
     }
 
     public void setDay(Long day) {
@@ -82,11 +86,40 @@ public class Schedule {
         this.endMin = endMin;
     }
 
-    public Long getProfName() {
+    public Long getDisciplineClassId() {
+        return disciplineClassId;
+    }
+
+    public void setDisciplineClassId(Long disciplineClassId) {
+        this.disciplineClassId = disciplineClassId;
+    }
+
+    public String getProfName() {
         return profName;
     }
 
-    public void setProfName(Long profName) {
+    public void setProfName(String profName) {
         this.profName = profName;
+    }
+
+    public String getDayString(Long day) {
+        switch (String.valueOf(day)) {
+            case "1":
+                return "SEG";
+            case "2":
+                return "TER";
+            case "3":
+                return "QUA";
+            case "4":
+                return "QUI";
+            case "5":
+                return "SEX";
+            case "6":
+                return "SAB";
+            case "7":
+                return "DOM";
+            default:
+                return "CMB";
+        }
     }
 }

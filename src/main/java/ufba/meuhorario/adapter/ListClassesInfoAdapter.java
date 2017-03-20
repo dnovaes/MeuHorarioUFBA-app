@@ -53,14 +53,16 @@ public class ListClassesInfoAdapter extends BaseAdapter {
         View line = inflater.inflate(R.layout.list_classinfo_line, null);
 
         TextView viewClassNumber = (TextView) line.findViewById(R.id.line_classinfo_classnumber);
-        viewClassNumber.setText(String.valueOf(classInfo.getClassNumber()));
+        viewClassNumber.setText(classInfo.getClassNumber());
 
         TextView viewVacancy = (TextView) line.findViewById(R.id.line_classinfo_vacancy);
-        viewVacancy.setText(String.valueOf(classInfo.getVacancy()));
+        viewVacancy.setText(classInfo.getVacancy()+" Vagas");
 
         ListView listViewSchedule = (ListView) line.findViewById(R.id.line_classinfo_schedule);
+
         //TODO: change "new ArrayList" to a function that gets all the schedules related to this disciplineClassId (ClassInfoID)
-        List<Schedule> scheduleList =  new ArrayList<Schedule>();
+
+        List<Schedule> scheduleList =  classInfo.getScheduleList();
         ListSchedulesAdapter adapter = new ListSchedulesAdapter(scheduleList, activity);
         listViewSchedule.setAdapter(adapter);
 

@@ -50,13 +50,13 @@ public class ListSchedulesAdapter extends BaseAdapter {
         View line = inflater.inflate(R.layout.list_schedule_line, null);
 
         TextView viewDay = (TextView) line.findViewById(R.id.line_schedule_day);
-        viewDay.setText(schedule.getDay());
+        viewDay.setText(schedule.getDayString((schedule.getDay())));
 
         TextView viewEndHour = (TextView) line.findViewById(R.id.line_schedule_hour);
-        viewEndHour.setText(schedule.getStartHour()+" às "+schedule.getEndHour());
+        viewEndHour.setText(schedule.getStartHour()+":"+schedule.getStartMin()+" às "+schedule.getEndHour()+":"+schedule.getEndMin());
 
         TextView viewProfName = (TextView) line.findViewById(R.id.line_schedule_profname);
-        viewProfName.setText(String.valueOf(schedule.getProfName()));
+        viewProfName.setText(schedule.getProfName());
 
         return line;
     }

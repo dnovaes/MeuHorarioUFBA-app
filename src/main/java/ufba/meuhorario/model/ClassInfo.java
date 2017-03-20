@@ -11,7 +11,7 @@ public class ClassInfo {
     // It's a class for DisciplineClass with the other variables.
 
     Long disciplineClassId;
-    Long classNumber;
+    String classNumber;
     Long vacancy;
     List<Schedule> scheduleList;
 
@@ -24,11 +24,11 @@ public class ClassInfo {
         return disciplineClassId;
     }
 
-    public Long getClassNumber() {
+    public String getClassNumber() {
         return classNumber;
     }
 
-    public void setClassNumber(Long classNumber) {
+    public void setClassNumber(String classNumber) {
         this.classNumber = classNumber;
     }
 

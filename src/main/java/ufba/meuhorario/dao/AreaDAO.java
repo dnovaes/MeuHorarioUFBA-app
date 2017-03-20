@@ -26,6 +26,11 @@ public class AreaDAO extends SQLiteOpenHelper {
     private static final String TABLE_NAME_COURSE = "Course";
     private static final String TABLE_NAME_DISCIPLINE = "Discipline";
     private static final String TABLE_NAME_DC = "DisciplineCourse";
+    private static final String TABLE_NAME_DCLASS = "disciplineclass";
+    private static final String TABLE_NAME_DCO = "disciplineclassoffers";
+    private static final String TABLE_NAME_S = "schedules";
+    private static final String TABLE_NAME_PS = "professorschedules";
+    private static final String TABLE_NAME_P = "professors";
 
     public AreaDAO(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -49,6 +54,27 @@ public class AreaDAO extends SQLiteOpenHelper {
                 " CREATE TABLE "+TABLE_NAME_DC+
                         " (id INTEGER PRIMARY KEY, semester INTEGER, nature TEXT NOT NULL, course_id INTEGER NOT NULL, discipline_id INTEGER NOT NULL)"
         );
+        db.execSQL(
+                " CREATE TABLE "+TABLE_NAME_DCLASS+
+                        " (id INTEGER PRIMARY KEY, discipline_id INTEGER NOT NULL, class_number TEXT NOT NULL)"
+        );
+        db.execSQL(
+                " CREATE TABLE "+TABLE_NAME_DCO+
+                        "(id INTEGER PRIMARY KEY, discipline_class_id INTEGER NOT NULL, vacancies INTEGER NOT NULL)"
+        );
+        db.execSQL(
+                " CREATE TABLE "+TABLE_NAME_S+
+                        "(id INTEGER PRIMARY KEY, day INTEGER NOT NULL, start_hour INTEGER NOT NULL, start_minute INTEGER NOT NULL, discipline_class_id INTEGER NOT NULL, end_hour INTEGER NOT NULL, end_minute INTEGER NOT NULL)"
+        );
+        db.execSQL(
+                " CREATE TABLE "+TABLE_NAME_PS+
+                        "(id INTEGER PRIMARY KEY, schedule_id INTEGER NOT NULL, professor_id INTEGER NOT NULL);"
+        );
+        db.execSQL(
+                " CREATE TABLE "+TABLE_NAME_P+
+                        "(id INTEGER PRIMARY KEY, name TEXT NOT NULL);"
+        );
+
     }
 
     @Override
@@ -128,5 +154,11 @@ public class AreaDAO extends SQLiteOpenHelper {
         }
         c.close();
         return count;
+    }
+
+    public void truncate(String tablename) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.execSQL("DELETE FROM "+tablename);
     }
 }

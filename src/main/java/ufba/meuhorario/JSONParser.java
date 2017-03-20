@@ -11,13 +11,26 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import ufba.meuhorario.dao.AreaDAO;
+import ufba.meuhorario.dao.DisciplineClassDAO;
 import ufba.meuhorario.dao.CourseDAO;
+import ufba.meuhorario.dao.DisciplineClassOfferDAO;
 import ufba.meuhorario.dao.DisciplineDAO;
+import ufba.meuhorario.dao.ProfessorDAO;
+import ufba.meuhorario.dao.ProfessorScheduleDAO;
+import ufba.meuhorario.dao.ScheduleDAO;
 import ufba.meuhorario.model.Area;
 import ufba.meuhorario.model.Course;
 import ufba.meuhorario.model.Discipline;
+import ufba.meuhorario.model.DisciplineClass;
+import ufba.meuhorario.model.DisciplineClassOffer;
 import ufba.meuhorario.model.DisciplineCourse;
+import ufba.meuhorario.model.Professor;
+import ufba.meuhorario.model.ProfessorSchedule;
+import ufba.meuhorario.model.Schedule;
 
 /**
  * Created by Diego Novaes on 24/02/2017.
@@ -27,12 +40,22 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
 
     private String TAG = JSONParser.class.getSimpleName();
     private Activity MainActivity;
-    private String jsonUrl;
+    private String jsonUrl; //just apply for the classes that only need 1 jsonLink to get data.
+    private static String webserverUrl = "http://192.168.25.6";
+    private static Map<String, String> mapUrls = new HashMap<String, String>();
+    static{
+        mapUrls.put("discipline", webserverUrl+"/meuhorario/generateJson.php?t=discipline&arg1="); //course_id
+        mapUrls.put("discipline_course", webserverUrl+"/meuhorario/generateJson.php?t=disciplinecourse&arg1="); //course_id
+        mapUrls.put("discipline_class", webserverUrl+"/meuhorario/generateJson.php?t=disciplineclass&arg1="); //discipline_id
+        mapUrls.put("discipline_class_offers", webserverUrl+"/meuhorario/generateJson.php?t=disciplineclassoffers&arg1="); //discipline_class_id
+        mapUrls.put("schedules", webserverUrl+"/meuhorario/generateJson.php?t=schedules&arg1="); //discipline_class_id
+        mapUrls.put("professor_schedules", webserverUrl+"/meuhorario/generateJson.php?t=professorschedules&arg1="); //schedules_id
+        mapUrls.put("professor", webserverUrl+"/meuhorario/generateJson.php?t=professors&arg1="); //professor_id
+    }
     private String jsonArrayName;
     private ProgressDialog progressDialog;
 
     private Long args1;
-    private Long args2;
 
     public JSONParser(Activity mainActivity, String url, String arrayName, Long... args) {
         MainActivity = mainActivity;
@@ -41,7 +64,6 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
         progressDialog = new ProgressDialog(MainActivity);
 
         args1 = args.length > 0 ? args[0]: 0;
-        args2 = args.length > 1 ? args[1]: 0;
     }
 
     @Override
@@ -52,7 +74,7 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
         progressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             public void onCancel(DialogInterface arg0) {
                 JSONParser.this.cancel(true);
-                Toast.makeText(MainActivity.getApplicationContext(), "Captura de dados cancelada :(",Toast.LENGTH_LONG).show();
+                //Toast.makeText(MainActivity.getApplicationContext(), "Captura de dados cancelada :(",Toast.LENGTH_LONG).show();
             }
         });
     }
@@ -62,7 +84,6 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
         HttpHandler handler = new HttpHandler();
 
         try{
-
             //Making a request to url and getting response
             String jsonStr;
             JSONObject jsonObj;
@@ -87,34 +108,29 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
                     StoreinDatabase(jsonArray, courseDAO);
                     break;
                 case "disciplines":
-                    //ignore: incomplete.
-                    /*jsonUrl = "http://localhost/meuhorario/generateJson.php?t=course&course_id="+args1+"&course_id="+args2;
-                    jsonStr = handler.makeServiceCall(jsonUrl);
-                    jsonObj = new JSONObject(jsonStr);
-                    // Getting JSON Array
-                    jsonArray = jsonObj.getJSONArray();
-
-                    DisciplineDAO disciDAO = new DisciplineDAO(MainActivity);
-                    StoreinDatabase(jsonArray, disciDAO, jsonArrayName);*/
 
                     //Download disciplines from API
-                    jsonUrl = "http://192.168.25.6/meuhorario/generateJson.php?t=discipline&cid="+args1;
+                    jsonUrl = mapUrls.get("discipline")+args1;
                     jsonStr = handler.makeServiceCall(jsonUrl);
                     jsonArray = new JSONArray(jsonStr);
 
                     //Insert discipline at local database (sqlite)
                     DisciplineDAO DisciDAO = new DisciplineDAO(MainActivity);
                     StoreinDatabase(jsonArray, DisciDAO, "disciplines");
-                case "course_disciplines":
 
                     //Download disciplinecourse form API
-                    jsonUrl = "http://192.168.25.6/meuhorario/generateJson.php?t=disciplinecourse&cid="+args1;
+                    jsonUrl = mapUrls.get("discipline_course")+args1;
                     jsonStr = handler.makeServiceCall(jsonUrl);
                     jsonArray = new JSONArray(jsonStr);
 
                     //Insert disciplinecourse at local database (SQlite)
                     DisciplineDAO corDisciDAO = new DisciplineDAO(MainActivity);
                     StoreinDatabase(jsonArray, corDisciDAO, "course_disciplines");
+                    break;
+                case "classesinfo":
+                    // insert info in 5 tables for classesinfo:
+                    // - discipline_class, discipline_class_offers, schedules, professor_schedules, professors.
+                    StoreinDatabaseAllClassInfo(args1);
                     break;
                 default:
                     MainActivity.runOnUiThread(new Runnable() {
@@ -189,7 +205,7 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
         }
     }
 
-    public static void StoreinDatabase(JSONArray jsonArray, DisciplineDAO dao, String arrayName) throws JSONException {
+    public void StoreinDatabase(JSONArray jsonArray, DisciplineDAO dao, String arrayName) throws JSONException {
         if(arrayName.equals("disciplines")){
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject c = jsonArray.getJSONObject(i);
@@ -219,6 +235,121 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
 
                 dao.insertData(dc);
                 dao.close();
+            }
+        }
+    }
+
+    public void StoreinDatabaseAllClassInfo(Long disciplineId) throws JSONException {
+
+        HttpHandler handler = new HttpHandler();
+
+        // discipline_class
+        // desc: store a DisciplineClass instance using discipline_id
+        String jsonUrl = mapUrls.get("discipline_class")+disciplineId;
+        String jsonStr = handler.makeServiceCall(jsonUrl);
+        JSONArray jsonArrayDC = new JSONArray(jsonStr);
+
+        DisciplineClassDAO dcDAO = new DisciplineClassDAO(MainActivity);
+
+        Log.e("JSONParser", "Foi encontrado "+jsonArrayDC.length()+" DisciClasses:");
+
+        for (int i = 0; i < jsonArrayDC.length(); i++) {
+
+            Log.e("JSONParser", "Lendo dc #"+i+" de "+jsonArrayDC.getJSONObject(i));
+
+            JSONObject dcJsonObj = jsonArrayDC.getJSONObject(i);
+            DisciplineClass dc = new DisciplineClass();
+
+            dc.setId(Long.parseLong(dcJsonObj.getString("id")));
+            dc.setDiscipline_id(Long.parseLong(dcJsonObj.getString("discipline_id")));
+            dc.setClass_number(dcJsonObj.getString("class_number"));
+
+
+            dcDAO.insertData(dc);
+            dcDAO.close();
+
+            // discipline_class_offers
+            // desc: store a DisciplineClassOffer instance using discipline_class_id.
+            // Always return 1 row as result. discipline_class_id x discipline_class_offer_id =  1x1;
+            jsonUrl = mapUrls.get("discipline_class_offers")+dc.getId();
+            jsonStr = handler.makeServiceCall(jsonUrl);
+            JSONArray jsonArrayDCO = new JSONArray(jsonStr);
+
+            DisciplineClassOfferDAO dcoDAO = new DisciplineClassOfferDAO(MainActivity);
+            JSONObject dcoJsonObj = jsonArrayDCO.getJSONObject(0);
+            DisciplineClassOffer dco = new DisciplineClassOffer();
+
+            dco.setId(Long.parseLong(dcoJsonObj.getString("id")));
+            dco.setDiscipline_class_id(Long.parseLong(dcoJsonObj.getString("discipline_class_id")));
+            dco.setVacancies(Long.parseLong(dcoJsonObj.getString("vacancies")));
+
+            //Log.e("disciplineClasses", dc.getClass_number()+" "+dco.getDiscipline_class_id()+" "+dco.getVacancies());
+            //System.exit(1);
+
+            dcoDAO.insertData(dco);
+            dcoDAO.close();
+
+            // schedules
+            // desc: store a schedule instance using discipline_class_id
+            jsonUrl = mapUrls.get("schedules")+dc.getId();
+            jsonStr = handler.makeServiceCall(jsonUrl);
+            JSONArray jsonArrayS = new JSONArray(jsonStr);
+
+            ScheduleDAO sDAO = new ScheduleDAO(MainActivity);
+
+            Log.e("JSONParser", "Foi encontrado "+jsonArrayS.length()+" schedules:");
+
+            for (int j = 0; j < jsonArrayS.length(); j++) {
+
+                Log.e("JSONParser", "Lendo schedule #"+j+" de "+jsonArrayS.getJSONObject(j));
+
+                JSONObject sJsonObj = jsonArrayS.getJSONObject(j);
+                Schedule s = new Schedule();
+
+                s.setId(Long.parseLong(sJsonObj.getString("id")));
+                s.setDay(Long.parseLong(sJsonObj.getString("day")));
+                Log.e("JSONParser", " "+s.getDay());
+                s.setStartHour(Long.parseLong(sJsonObj.getString("start_hour")));
+                s.setStartMin(Long.parseLong(sJsonObj.getString("start_minute")));
+                s.setEndHour(Long.parseLong(sJsonObj.getString("end_hour")));
+                s.setEndMin(Long.parseLong(sJsonObj.getString("end_minute")));
+                s.setDisciplineClassId(Long.parseLong(sJsonObj.getString("discipline_class_id")));
+
+                sDAO.insertData(s);
+                sDAO.close();
+
+                // professor_schedules
+                jsonUrl = mapUrls.get("professor_schedules")+s.getId();
+                jsonStr = handler.makeServiceCall(jsonUrl);
+                JSONArray jsonArrayPS= new JSONArray(jsonStr);
+
+                JSONObject psJsonObj = jsonArrayPS.getJSONObject(0);
+                ProfessorScheduleDAO psDAO = new ProfessorScheduleDAO(MainActivity);
+                ProfessorSchedule ps = new ProfessorSchedule();
+
+                ps.setId(Long.parseLong(psJsonObj.getString("id")));
+                ps.setSchedule_id(Long.parseLong(psJsonObj.getString("schedule_id")));
+                ps.setProfessor_id(Long.parseLong(psJsonObj.getString("professor_id")));
+
+                psDAO.insertData(ps);
+                psDAO.close();
+
+                // professor
+                jsonUrl = mapUrls.get("professor")+ps.getProfessor_id();
+                jsonStr = handler.makeServiceCall(jsonUrl);
+                JSONArray jsonArrayP = new JSONArray(jsonStr);
+
+                JSONObject pJsonObj = jsonArrayP.getJSONObject(0);
+                ProfessorDAO pDAO = new ProfessorDAO(MainActivity);
+                Professor p = new Professor();
+
+                p.setId(Long.parseLong(pJsonObj.getString("id")));
+                p.setName((pJsonObj.getString("name")));
+
+                pDAO.insertData(p);
+                pDAO.close();
+
+                Log.e("JSONParser", "Fim schedule #"+j);
             }
         }
     }

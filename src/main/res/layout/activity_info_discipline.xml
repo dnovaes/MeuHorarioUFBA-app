@@ -51,7 +51,7 @@ android:scrollbarAlwaysDrawVerticalTrack="true">
         android:textAlignment="center" />
     <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="320dp"
         android:id="@+id/infodisc_classes_list"
         android:background="@color/backgroundLightRed">
     </ListView>
