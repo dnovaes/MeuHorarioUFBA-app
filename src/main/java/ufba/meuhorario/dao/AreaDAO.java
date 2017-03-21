@@ -31,6 +31,7 @@ public class AreaDAO extends SQLiteOpenHelper {
     private static final String TABLE_NAME_S = "schedules";
     private static final String TABLE_NAME_PS = "professorschedules";
     private static final String TABLE_NAME_P = "professors";
+    private static final String TABLE_NAME_PROFILE = "profile";
 
     public AreaDAO(Context context){
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -38,6 +39,10 @@ public class AreaDAO extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL(
+                "CREATE TABLE "+ TABLE_NAME_PROFILE +
+                        " (id INTEGER PRIMARY KEY, name TEXT , nmatricula TEXT, courseyearcurriculum TEXT, semester TEXT, course TEXT, imageurl TEXT)"
+        );
         db.execSQL(
                 "CREATE TABLE "+ TABLE_NAME +
                         " (id INTEGER PRIMARY KEY, name TEXT NOT NULL, description TEXT)"
