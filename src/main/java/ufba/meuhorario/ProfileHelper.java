@@ -78,6 +78,8 @@ public class ProfileHelper {
             profile.setImageurl(imageLocation);
         }else if(profile.getImageurl() != null){
             profile.setImageurl(profile.getImageurl());
+        }else{
+            return ;
         }
 
         ImageView viewImage = (ImageView)profileActivity.findViewById(R.id.activity_profile_image);
