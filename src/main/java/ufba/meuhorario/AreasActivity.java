@@ -47,7 +47,7 @@ public class AreasActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.json_download_option, menu);
+        getMenuInflater().inflate(R.menu.area_options_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -60,6 +60,9 @@ public class AreasActivity extends AppCompatActivity {
                 dao.truncate("area");
                 getJsonData();
                 break;
+            case R.id.perfil:
+                Intent intentPerfil = new Intent(AreasActivity.this.getApplicationContext(), ProfileActivity.class);
+                startActivity(intentPerfil);
         }
         return super.onOptionsItemSelected(item);
     }

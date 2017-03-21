@@ -7,22 +7,16 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ufba.meuhorario.adapter.ListClassesInfoAdapter;
-import ufba.meuhorario.adapter.ListDisciplinesAdapter;
 import ufba.meuhorario.dao.DisciplineClassDAO;
-import ufba.meuhorario.dao.DisciplineDAO;
-import ufba.meuhorario.dao.ScheduleDAO;
 import ufba.meuhorario.model.ClassInfo;
 import ufba.meuhorario.model.Discipline;
-import ufba.meuhorario.model.DisciplineClass;
 
 
 /**
@@ -109,7 +103,7 @@ public class InfoDisciplineActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.json_download_option, menu);
+        getMenuInflater().inflate(R.menu.area_options_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

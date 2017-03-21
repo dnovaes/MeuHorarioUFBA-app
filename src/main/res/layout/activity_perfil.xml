@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_perfil_id"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="br.com.galdir.agenda.FormularioActivity"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:src="@drawable/person"
+                android:background="#00abec"
+                android:id="@+id/profile_image"/>
+
+            <Button
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:background="@drawable/fundo_camera"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/profile_cam_button"/>
+
+        </RelativeLayout>
+
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Nome"
+            android:id="@+id/activity_profile_name"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Nº Matrícula"
+            android:id="@+id/activity_profile_nmatricula"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Ano do Currículo"
+            android:id="@+id/activity_profile_courseyearcurriculum"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Site"
+            android:id="@+id/activity_profile_semester"/>
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Site"
+            android:id="@+id/activity_profile_course"/>
+
+        <!--<Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:id="@+id/activity_formulario_saveBtn"/>-->
+
+    </LinearLayout>
+</ScrollView>
+
+    <!--android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"-->
