@@ -41,7 +41,8 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
     private String TAG = JSONParser.class.getSimpleName();
     private Activity MainActivity;
     private String jsonUrl; //just apply for the classes that only need 1 jsonLink to get data.
-    private static String webserverUrl = "http://192.168.25.6";
+    //private static String webserverUrl = "http://192.168.25.6";
+    private static String webserverUrl = "http://meuhorarioufba.16mb.com";
     private static Map<String, String> mapUrls = new HashMap<String, String>();
     static{
         mapUrls.put("discipline", webserverUrl+"/meuhorario/generateJson.php?t=discipline&arg1="); //course_id
