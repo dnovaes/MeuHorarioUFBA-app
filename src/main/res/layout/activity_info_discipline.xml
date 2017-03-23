@@ -22,7 +22,7 @@ android:scrollbarAlwaysDrawVerticalTrack="true">
         android:gravity="center"
         android:background="@color/backgroundLightRed"
         android:scrollbars="vertical" />
-    <TextView
+   <!--<TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/infodisc_prereq_title"
@@ -38,7 +38,7 @@ android:scrollbarAlwaysDrawVerticalTrack="true">
         android:layout_height="match_parent"
         android:id="@+id/infodisc_prereq_list"
         android:background="@color/backgroundLightRed">
-    </ListView>
+    </ListView>-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="50dp"

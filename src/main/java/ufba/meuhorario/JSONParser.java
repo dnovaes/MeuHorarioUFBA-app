@@ -41,17 +41,17 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
     private String TAG = JSONParser.class.getSimpleName();
     private Activity MainActivity;
     private String jsonUrl; //just apply for the classes that only need 1 jsonLink to get data.
-    //private static String webserverUrl = "http://192.168.25.6";
+    //private static String webserverUrl = "http://192.168.25.6/meuhorario";
     private static String webserverUrl = "http://meuhorarioufba.16mb.com";
     private static Map<String, String> mapUrls = new HashMap<String, String>();
     static{
-        mapUrls.put("discipline", webserverUrl+"/meuhorario/generateJson.php?t=discipline&arg1="); //course_id
-        mapUrls.put("discipline_course", webserverUrl+"/meuhorario/generateJson.php?t=disciplinecourse&arg1="); //course_id
-        mapUrls.put("discipline_class", webserverUrl+"/meuhorario/generateJson.php?t=disciplineclass&arg1="); //discipline_id
-        mapUrls.put("discipline_class_offers", webserverUrl+"/meuhorario/generateJson.php?t=disciplineclassoffers&arg1="); //discipline_class_id
-        mapUrls.put("schedules", webserverUrl+"/meuhorario/generateJson.php?t=schedules&arg1="); //discipline_class_id
-        mapUrls.put("professor_schedules", webserverUrl+"/meuhorario/generateJson.php?t=professorschedules&arg1="); //schedules_id
-        mapUrls.put("professor", webserverUrl+"/meuhorario/generateJson.php?t=professors&arg1="); //professor_id
+        mapUrls.put("discipline", webserverUrl+"/generateJson.php?t=discipline&arg1="); //course_id
+        mapUrls.put("discipline_course", webserverUrl+"/generateJson.php?t=disciplinecourse&arg1="); //course_id
+        mapUrls.put("discipline_class", webserverUrl+"/generateJson.php?t=disciplineclass&arg1="); //discipline_id
+        mapUrls.put("discipline_class_offers", webserverUrl+"/generateJson.php?t=disciplineclassoffers&arg1="); //discipline_class_id
+        mapUrls.put("schedules", webserverUrl+"/generateJson.php?t=schedules&arg1="); //discipline_class_id
+        mapUrls.put("professor_schedules", webserverUrl+"/generateJson.php?t=professorschedules&arg1="); //schedules_id
+        mapUrls.put("professor", webserverUrl+"/generateJson.php?t=professors&arg1="); //professor_id
     }
     private String jsonArrayName;
     private ProgressDialog progressDialog;
@@ -252,11 +252,9 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
 
         DisciplineClassDAO dcDAO = new DisciplineClassDAO(MainActivity);
 
-        Log.e("JSONParser", "Foi encontrado "+jsonArrayDC.length()+" DisciClasses:");
-
         for (int i = 0; i < jsonArrayDC.length(); i++) {
 
-            Log.e("JSONParser", "Lendo dc #"+i+" de "+jsonArrayDC.getJSONObject(i));
+            //Log.e("JSONParser", "Lendo dc #"+i+" de "+jsonArrayDC.getJSONObject(i));
 
             JSONObject dcJsonObj = jsonArrayDC.getJSONObject(i);
             DisciplineClass dc = new DisciplineClass();
@@ -298,18 +296,15 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
 
             ScheduleDAO sDAO = new ScheduleDAO(MainActivity);
 
-            Log.e("JSONParser", "Foi encontrado "+jsonArrayS.length()+" schedules:");
-
             for (int j = 0; j < jsonArrayS.length(); j++) {
 
-                Log.e("JSONParser", "Lendo schedule #"+j+" de "+jsonArrayS.getJSONObject(j));
+                //Log.e("JSONParser", "Lendo schedule #"+j+" de "+jsonArrayS.getJSONObject(j));
 
                 JSONObject sJsonObj = jsonArrayS.getJSONObject(j);
                 Schedule s = new Schedule();
 
                 s.setId(Long.parseLong(sJsonObj.getString("id")));
                 s.setDay(Long.parseLong(sJsonObj.getString("day")));
-                Log.e("JSONParser", " "+s.getDay());
                 s.setStartHour(Long.parseLong(sJsonObj.getString("start_hour")));
                 s.setStartMin(Long.parseLong(sJsonObj.getString("start_minute")));
                 s.setEndHour(Long.parseLong(sJsonObj.getString("end_hour")));
@@ -349,8 +344,6 @@ public class JSONParser extends AsyncTask<Void, Void, Void> {
 
                 pDAO.insertData(p);
                 pDAO.close();
-
-                Log.e("JSONParser", "Fim schedule #"+j);
             }
         }
     }

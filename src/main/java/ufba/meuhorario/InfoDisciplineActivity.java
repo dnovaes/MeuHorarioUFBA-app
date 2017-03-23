@@ -47,21 +47,17 @@ public class InfoDisciplineActivity extends AppCompatActivity {
         infodiscTextView.setText(discipline.getName());
 
         //get references to all needed views
-        prereqList = (ListView)findViewById(R.id.infodisc_prereq_list);
-        prereqTextView = (TextView) findViewById(R.id.infodisc_prereq_title);
+        //prereqList = (ListView)findViewById(R.id.infodisc_prereq_list);
+        //prereqTextView = (TextView) findViewById(R.id.infodisc_prereq_title);
 
         classesList = (ListView)findViewById(R.id.infodisc_classes_list);
         classesTextView = (TextView) findViewById(R.id.infodisc_classes_title);
 
         //Set all the listviews invisible
-        prereqList.setVisibility(View.GONE);
+        //prereqList.setVisibility(View.GONE);
         //classesList.setVisibility(View.GONE);
 
-        //disciplinesList = (ListView) findViewById(R.id.info_discipline_view);
-        //TextView titleView = (TextView) findViewById(R.id.info_discipline_title);
-        //titleView.setText(discipline.getName());
-
-        prereqTextView.setOnClickListener(new View.OnClickListener(){
+        /*prereqTextView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 Toast.makeText(InfoDisciplineActivity.this, "textview prereq clicked!", Toast.LENGTH_SHORT).show();
@@ -74,7 +70,7 @@ public class InfoDisciplineActivity extends AppCompatActivity {
                         break;
                 }
             }
-        });
+        });*/
 
         classesTextView.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -91,7 +87,6 @@ public class InfoDisciplineActivity extends AppCompatActivity {
             }
         });
 
-        Log.e("InfoDisciplineActivity", "activity created");
         getJsonData();
     }
 
@@ -117,7 +112,6 @@ public class InfoDisciplineActivity extends AppCompatActivity {
                 dao.truncate("disciplineclass");
                 dao.close();
                 getJsonData();
-                Log.e("teste", "teste");
                 break;
         }
         return super.onOptionsItemSelected(item);
