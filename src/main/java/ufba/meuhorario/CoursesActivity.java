@@ -93,7 +93,7 @@ public class CoursesActivity extends AppCompatActivity{
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.json_delete_courses, menu);
+        //getMenuInflater().inflate(R.menu.json_delete_courses, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

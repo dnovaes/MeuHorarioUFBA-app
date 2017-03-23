@@ -55,7 +55,7 @@ public class InfoDisciplineActivity extends AppCompatActivity {
 
         //Set all the listviews invisible
         //prereqList.setVisibility(View.GONE);
-        //classesList.setVisibility(View.GONE);
+        classesList.setVisibility(View.VISIBLE);
 
         /*prereqTextView.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -75,7 +75,6 @@ public class InfoDisciplineActivity extends AppCompatActivity {
         classesTextView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Toast.makeText(InfoDisciplineActivity.this, "textview prereq clicked!", Toast.LENGTH_SHORT).show();
                 switch(classesList.getVisibility()) {
                     case (View.GONE):
                         classesList.setVisibility(View.VISIBLE);
@@ -98,7 +97,7 @@ public class InfoDisciplineActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.area_options_menu, menu);
+        getMenuInflater().inflate(R.menu.area_options_menu_updateonly, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
